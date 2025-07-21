@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,22 +12,23 @@
     }
     iframe {
       position: fixed;
-      top: 0; left: 0;
+      top: 0;
+      left: 0;
       width: 100vw;
+      min-height: 100vh; /* fallback */
       height: calc(var(--vh, 1vh) * 100);
       border: none;
     }
   </style>
-</head>
-<body>
-  <iframe src="https://script.google.com/macros/s/AKfycbw1JhCNeGM0AL_bmytA4_E0tu8J3ceueDD84ZE7XXO6lJD4bKCa8_rsygIjH6azpGra-g/exec?sn=SKD68W706309"></iframe>
-
   <script>
     function setFullHeight() {
       document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
+    window.addEventListener('DOMContentLoaded', setFullHeight);
     window.addEventListener('resize', setFullHeight);
-    window.addEventListener('load', setFullHeight);
   </script>
+</head>
+<body>
+  <iframe src="https://script.google.com/macros/s/AKfycbw1JhCNeGM0AL_bmytA4_E0tu8J3ceueDD84ZE7XXO6lJD4bKCa8_rsygIjH6azpGra-g/exec?sn=SKD68W706309"></iframe>
 </body>
 </html>
