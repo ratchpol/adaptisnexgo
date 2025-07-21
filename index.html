@@ -15,7 +15,7 @@
       top: 0;
       left: 0;
       width: 100vw;
-      min-height: 100vh; /* fallback */
+      min-height: 100vh; /* fallback สำหรับ mobile */
       height: calc(var(--vh, 1vh) * 100);
       border: none;
     }
@@ -24,11 +24,23 @@
     function setFullHeight() {
       document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
     }
-    window.addEventListener('DOMContentLoaded', setFullHeight);
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setFullHeight();
+
+      // ✅ ดึงค่า sn จาก URL
+      const params = new URLSearchParams(window.location.search);
+      const sn = params.get('sn') || 'DEFAULT_SN';
+
+      // ✅ ใส่ค่า sn เข้า iframe
+      const iframe = document.getElementById('main-frame');
+      iframe.src = `https://script.google.com/macros/s/AKfycbw1JhCNeGM0AL_bmytA4_E0tu8J3ceueDD84ZE7XXO6lJD4bKCa8_rsygIjH6azpGra-g/exec?sn=${encodeURIComponent(sn)}`;
+    });
+
     window.addEventListener('resize', setFullHeight);
   </script>
 </head>
 <body>
-  <iframe src="https://script.google.com/macros/s/AKfycbw1JhCNeGM0AL_bmytA4_E0tu8J3ceueDD84ZE7XXO6lJD4bKCa8_rsygIjH6azpGra-g/exec?sn=SKD68W706309"></iframe>
+  <iframe id="main-frame" src=""></iframe>
 </body>
 </html>
