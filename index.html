@@ -11,37 +11,35 @@
       height: 100%;
       overflow: hidden;
     }
-    iframe {
-      position: absolute;
+    #main-frame {
+      position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       border: none;
+      display: block;
     }
   </style>
 </head>
 <body>
-  <iframe id="main-frame" src=""></iframe>
+  <iframe id="main-frame"></iframe>
 
   <script>
-    // ตั้งความสูงของ iframe ให้เท่ากับหน้าจอจริง
-    function resizeIframe() {
-      const vh = window.innerHeight;
-      document.getElementById('main-frame').style.height = vh + 'px';
+    function updateHeight() {
+      const iframe = document.getElementById('main-frame');
+      iframe.style.height = window.innerHeight + 'px';
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
-      resizeIframe();
+    // ดึงค่า sn จาก URL
+    const params = new URLSearchParams(window.location.search);
+    const sn = params.get('sn') || 'QR invalid!';
+    const iframe = document.getElementById('main-frame');
+    iframe.src = `https://script.google.com/macros/s/AKfycbw1JhCNeGM0AL_bmytA4_E0tu8J3ceueDD84ZE7XXO6lJD4bKCa8_rsygIjH6azpGra-g/exec?sn=${encodeURIComponent(sn)}`;
 
-      const params = new URLSearchParams(window.location.search);
-      const sn = params.get('sn') || 'DEFAULT_SN';
-
-      const iframe = document.getElementById('main-frame');
-      iframe.src = `https://script.google.com/macros/s/AKfycbw1JhCNeGM0AL_bmytA4_E0tu8J3ceueDD84ZE7XXO6lJD4bKCa8_rsygIjH6azpGra-g/exec?sn=${encodeURIComponent(sn)}`;
-    });
-
-    window.addEventListener('resize', resizeIframe);
-    window.addEventListener('orientationchange', resizeIframe);
+    // ตั้งค่าความสูงเมื่อโหลดเสร็จ
+    window.addEventListener('load', updateHeight);
+    window.addEventListener('resize', updateHeight);
+    window.addEventListener('orientationchange', updateHeight);
   </script>
 </body>
 </html>
