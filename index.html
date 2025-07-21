@@ -2,45 +2,46 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>ADAPTIS</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
       height: 100%;
+      overflow: hidden;
     }
     iframe {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100vw;
-      min-height: 100vh; /* fallback สำหรับ mobile */
-      height: calc(var(--vh, 1vh) * 100);
       border: none;
     }
   </style>
+</head>
+<body>
+  <iframe id="main-frame" src=""></iframe>
+
   <script>
-    function setFullHeight() {
-      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    // ตั้งความสูงของ iframe ให้เท่ากับหน้าจอจริง
+    function resizeIframe() {
+      const vh = window.innerHeight;
+      document.getElementById('main-frame').style.height = vh + 'px';
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      setFullHeight();
+      resizeIframe();
 
-      // ✅ ดึงค่า sn จาก URL
       const params = new URLSearchParams(window.location.search);
       const sn = params.get('sn') || 'DEFAULT_SN';
 
-      // ✅ ใส่ค่า sn เข้า iframe
       const iframe = document.getElementById('main-frame');
       iframe.src = `https://script.google.com/macros/s/AKfycbw1JhCNeGM0AL_bmytA4_E0tu8J3ceueDD84ZE7XXO6lJD4bKCa8_rsygIjH6azpGra-g/exec?sn=${encodeURIComponent(sn)}`;
     });
 
-    window.addEventListener('resize', setFullHeight);
+    window.addEventListener('resize', resizeIframe);
+    window.addEventListener('orientationchange', resizeIframe);
   </script>
-</head>
-<body>
-  <iframe id="main-frame" src=""></iframe>
 </body>
 </html>
