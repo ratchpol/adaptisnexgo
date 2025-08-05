@@ -2,32 +2,79 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>QR Code Generator with Logo</title>
+  <title>ADAPTIS QR SoundBox</title>
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
   <style>
     body {
-      font-family: sans-serif;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ece9e6, #ffffff);
       text-align: center;
       padding: 2rem;
+      color: #333;
     }
 
-    #qrcode {
-      margin-top: 20px;
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #222;
+    }
+
+    .input-container {
       display: flex;
       justify-content: center;
+      margin-bottom: 20px;
+      gap: 10px;
     }
 
     input[type="text"] {
-      width: 300px;
-      padding: 10px;
+      width: 320px;
+      padding: 12px;
       font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #4CAF50;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
     }
 
     button {
-      padding: 10px 20px;
+      padding: 12px 22px;
       font-size: 16px;
-      margin-left: 10px;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #4CAF50, #45a049);
+      color: white;
       cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    #qrcode {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      max-width: 360px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #777;
     }
   </style>
 </head>
@@ -35,10 +82,16 @@
 
   <h2>ADAPTIS QR SoundBox</h2>
 
-  <input type="text" id="qrText" placeholder="Sample KD68W504134" />
-  <button onclick="generateQRCode()">GEN QR</button>
+  <div class="input-container">
+    <input type="text" id="qrText" placeholder="Enter SoundBox S/N (e.g. KD68W504134)" />
+    <button onclick="generateQRCode()">Generate</button>
+  </div>
 
   <div id="qrcode"></div>
+
+  <footer>
+    © 2025 Adaptis | QR Generator
+  </footer>
 
   <script>    
     const qrCode = new QRCodeStyling({
@@ -47,7 +100,7 @@
       data: "",
       image: "logo.png", // logo ต้องอยู่ในโฟลเดอร์เดียวกับ HTML
       dotsOptions: {
-        color: "#000",
+        color: "#2c3e50",
         type: "rounded"
       },
       backgroundOptions: {
@@ -81,4 +134,3 @@
 
 </body>
 </html>
-
