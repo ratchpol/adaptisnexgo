@@ -62,19 +62,27 @@
       margin-top: 30px;
       display: flex;
       justify-content: center;
-      padding: 20px;
+    }
+
+    /* QR Code Container */
+    .qr-container {
       background: white;
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-      max-width: 360px;
-      margin-left: auto;
-      margin-right: auto;
+      padding: 20px;
+      border-radius: 20px;
+      border: 4px solid transparent;
+      background-image: linear-gradient(white, white), 
+                        linear-gradient(135deg, #4CAF50, #2ecc71, #16a085);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      display: inline-block;
     }
 
     footer {
       margin-top: 40px;
       font-size: 14px;
-      color: #777;
+      color: #555;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -87,10 +95,12 @@
     <button onclick="generateQRCode()">Generate</button>
   </div>
 
-  <div id="qrcode"></div>
+  <div class="qr-container">
+    <div id="qrcode"></div>
+  </div>
 
   <footer>
-    © 2025 Adaptis | QR Generator
+    © 2025 ADAPTIS | QR Generator
   </footer>
 
   <script>    
@@ -98,7 +108,7 @@
       width: 300,
       height: 300,
       data: "",
-      image: "logo.png", // logo ต้องอยู่ในโฟลเดอร์เดียวกับ HTML
+      image: "logo.png",
       dotsOptions: {
         color: "#2c3e50",
         type: "rounded"
