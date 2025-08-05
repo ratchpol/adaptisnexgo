@@ -4,20 +4,27 @@
   <meta charset="UTF-8" />
   <title>ADAPTIS QR SoundBox</title>
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #ece9e6, #ffffff);
+      background: linear-gradient(135deg, #e6f0ff, #ffffff);
       text-align: center;
       padding: 2rem;
       color: #333;
     }
 
+    .logo {
+      width: 120px;
+      margin-bottom: 15px;
+    }
+
     h2 {
       margin-bottom: 20px;
       font-size: 28px;
-      color: #2c3e50;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+      color: #1e3a8a;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
     }
 
     .input-container {
@@ -38,8 +45,8 @@
     }
 
     input[type="text"]:focus {
-      border-color: #4CAF50;
-      box-shadow: 0 0 10px rgba(76, 175, 80, 0.4);
+      border-color: #2563eb;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
     }
 
     button {
@@ -48,10 +55,17 @@
       font-weight: bold;
       border: none;
       border-radius: 10px;
-      background: linear-gradient(135deg, #4CAF50, #2ecc71);
+      background: linear-gradient(135deg, #3b82f6, #1e3a8a);
       color: white;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button i {
+      font-size: 18px;
     }
 
     button:hover {
@@ -60,18 +74,17 @@
     }
 
     #qrSection {
-      display: none; /* ซ่อนจนกว่าจะ gen */
-      margin-top: 40px;
+      display: none;
+      margin-top: 20px;
       animation: fadeIn 0.7s ease;
     }
 
     .qr-container {
-      background: white;
-      padding: 20px;
-      border-radius: 20px;
-      border: 5px solid transparent;
+      background: white;      
+      border-radius: 15px;
+      border: 10px solid transparent;
       background-image: linear-gradient(white, white), 
-                        linear-gradient(135deg, #4CAF50, #2ecc71, #16a085);
+                        linear-gradient(135deg, #3b82f6, #1e3a8a, #0f172a);
       background-origin: border-box;
       background-clip: content-box, border-box;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
@@ -83,15 +96,15 @@
       margin-top: 15px;
       font-size: 18px;
       font-weight: bold;
-      color: #2c3e50;
+      color: #1e3a8a;
       text-transform: uppercase;
       letter-spacing: 1px;
     }
 
     footer {
-      margin-top: 50px;
+      margin-top: 30px;
       font-size: 14px;
-      color: #555;
+      color: #444;
       font-weight: bold;
     }
 
@@ -103,17 +116,21 @@
 </head>
 <body>
 
+ 
+  <img src="adaptis-logo.png" alt="ADAPTIS Logo" class="logo">
   <h2>ADAPTIS QR SoundBox</h2>
 
   <div class="input-container">
     <input type="text" id="qrText" placeholder="Enter SoundBox S/N (e.g. KD68W504134)" />
-    <button onclick="generateQRCode()">Generate</button>
+    <button onclick="generateQRCode()">
+      <i class="fas fa-qrcode"></i> Generate
+    </button>
   </div>
 
-  <div id="qrSection">
+  <div id="qrSection" >
     <div class="qr-container">
-      <div id="qrcode"></div>
-      <div class="qr-text">Scan to Pay</div>
+      <div id="qrcode" style="padding-left: 10px; padding-top: 10px; padding-right: 10px;"></div>
+      <div class="qr-text" style="padding-bottom: 20px">Scan to Pay</div>
     </div>
   </div>
 
@@ -126,9 +143,8 @@
       width: 300,
       height: 300,
       data: "",
-      image: "logo.png",
       dotsOptions: {
-        color: "#2c3e50",
+        color: "#1e3a8a",
         type: "rounded"
       },
       backgroundOptions: {
