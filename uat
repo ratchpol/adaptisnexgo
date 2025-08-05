@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>ADAPTIS QR SoundBox</title>
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e6f0ff, #ffffff);
+      text-align: center;      
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 10px;
+    }
+
+    .logo {
+      width: 120px;
+      margin: 15px auto 0;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 6vw; /* ขนาดปรับตามหน้าจอ */
+      max-font-size: 28px;
+      color: #1e3a8a;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+    }
+
+    .input-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap; /* แก้ไขให้ปุ่มขึ้นบรรทัดใหม่ถ้าจอเล็ก */
+      margin-bottom: 20px;
+      gap: 10px;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    input[type="text"] {
+      flex: 1 1 250px;
+      padding: 12px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      outline: none;
+      transition: all 0.3s ease;
+      min-width: 200px;
+    }
+
+    input[type="text"]:focus {
+      border-color: #2563eb;
+      box-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+    }
+
+    button {
+      padding: 12px 22px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #3b82f6, #1e3a8a);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button i {
+      font-size: 18px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    #qrSection {
+      display: none;
+      margin-top: 20px;
+      animation: fadeIn 0.7s ease;
+      width: 100%;
+      max-width: 340px;
+    }
+
+    .qr-container {
+      background: white;      
+      border-radius: 15px;
+      border: 10px solid transparent;
+      background-image: linear-gradient(white, white), 
+                        linear-gradient(135deg, #3b82f6, #1e3a8a, #0f172a);
+      background-origin: border-box;
+      background-clip: content-box, border-box;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+      display: inline-block;
+      position: relative;
+      width: 100%;
+    }
+
+    .qr-text {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #1e3a8a;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #444;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* ทำ responsive สำหรับมือถือ */
+    @media (max-width: 480px) {
+      h2 {
+        font-size: 22px;
+      }
+      input[type="text"] {
+        width: 100%;
+        font-size: 14px;
+      }
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>ADAPTIS QR SoundBox</h2>
+
+  <div class="input-container">
+    <input type="text" id="qrText" placeholder="Enter SoundBox S/N (e.g. KD68W504134)" />
+    <button onclick="generateQRCode()">
+      <i class="fas fa-qrcode"></i> Generate
+    </button>
+  </div>
+
+  <div id="qrSection">  
+    <div class="qr-container">
+      <div id="qrcode" style="padding: 10px;"></div>	  
+      <div class="qr-text">Scan to Pay</div>	  
+      <img src="logo.png" alt="ADAPTIS Logo" class="logo">
+    </div>
+  </div>
+
+  <footer>
+    <div>© 2025 ADAPTIS | QR Generator</div>	
+  </footer>
+
+  <script>    
+    const qrCode = new QRCodeStyling({
+      width: 300,
+      height: 300,
+      image: "QRlogo.jpg",
+      type: "svg",
+      dotsOptions: {
+        color: "#1e3a8a",
+        type: "rounded"
+      },
+      backgroundOptions: {
+        color: "#ffffff",
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 5,
+        imageSize: 0.4
+      }
+    });
+
+    let isFirstRender = true;
+
+    function generateQRCode() {
+      let text = document.getElementById("qrText").value.trim();
+      if (text === "") {
+        alert("Please insert your SoundBox S/N!");
+        return;
+      }
+      text = "https://ratchpol.github.io/adaptisnexgo/?sn=S" + text; 
+
+      qrCode.update({ data: text });
+
+      if (isFirstRender) {
+        qrCode.append(document.getElementById("qrcode"));
+        isFirstRender = false;
+      }
+      
+      document.getElementById("qrSection").style.display = "block";
+    }
+  </script>
+
+</body>
+</html>
