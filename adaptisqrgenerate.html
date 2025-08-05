@@ -4,15 +4,19 @@
   <meta charset="UTF-8" />
   <title>ADAPTIS QR SoundBox</title>
   <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
-  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #e6f0ff, #ffffff);
-      text-align: center;
-      padding: 2rem;
+      text-align: center;      
       color: #333;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  min-height: 100vh;
+	  margin: 0;
     }
 
     .logo {
@@ -116,8 +120,7 @@
 </head>
 <body>
 
- 
-  <img src="adaptis-logo.png" alt="ADAPTIS Logo" class="logo">
+  
   <h2>ADAPTIS QR SoundBox</h2>
 
   <div class="input-container">
@@ -127,22 +130,24 @@
     </button>
   </div>
 
-  <div id="qrSection" >
+  <div id="qrSection" >  
     <div class="qr-container">
-      <div id="qrcode" style="padding-left: 10px; padding-top: 10px; padding-right: 10px;"></div>
-      <div class="qr-text" style="padding-bottom: 20px">Scan to Pay</div>
+      <div id="qrcode" style="padding-left: 10px; padding-top: 10px; padding-right: 10px;"></div>	  
+      <div class="qr-text" >Scan to Pay</div>	  
+	  <div><img src="logo.png" alt="ADAPTIS Logo" class="logo" ></div>	  
     </div>
   </div>
 
   <footer>
-    © 2025 ADAPTIS | QR Generator
+	<div>© 2025 ADAPTIS | QR Generator</div>	
   </footer>
 
   <script>    
     const qrCode = new QRCodeStyling({
       width: 300,
       height: 300,
-      data: "",
+      image: "QRlogo.jpg",
+	  type: "svg",
       dotsOptions: {
         color: "#1e3a8a",
         type: "rounded"
@@ -153,7 +158,7 @@
       imageOptions: {
         crossOrigin: "anonymous",
         margin: 5,
-        imageSize: 0.3
+        imageSize: 0.4
       }
     });
 
