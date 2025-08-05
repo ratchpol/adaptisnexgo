@@ -10,7 +10,6 @@
     body {
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(135deg, #e6f0ff, #ffffff);
-      text-align: center;      
       color: #333;
       display: flex;
       flex-direction: column;
@@ -18,18 +17,13 @@
       align-items: center;
       min-height: 100vh;
       margin: 0;
-      padding: 10px;
-    }
-
-    .logo {
-      width: 120px;
-      margin: 15px auto 0;
+      padding: 15px;
+      text-align: center;
     }
 
     h2 {
       margin-bottom: 20px;
-      font-size: 6vw; /* ขนาดปรับตามหน้าจอ */
-      max-font-size: 28px;
+      font-size: clamp(20px, 6vw, 28px); /* ปรับตามจอ */
       color: #1e3a8a;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
     }
@@ -38,22 +32,22 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      flex-wrap: wrap; /* แก้ไขให้ปุ่มขึ้นบรรทัดใหม่ถ้าจอเล็ก */
-      margin-bottom: 20px;
       gap: 10px;
       width: 100%;
       max-width: 500px;
+      margin-bottom: 20px;
+      flex-wrap: wrap; /* ซ้อนถ้าจอเล็ก */
     }
 
     input[type="text"] {
-      flex: 1 1 250px;
+      flex: 1;
+      min-width: 220px;
       padding: 12px;
       font-size: 16px;
       border: 2px solid #ddd;
       border-radius: 10px;
       outline: none;
       transition: all 0.3s ease;
-      min-width: 200px;
     }
 
     input[type="text"]:focus {
@@ -76,13 +70,13 @@
       gap: 8px;
     }
 
-    button i {
-      font-size: 18px;
-    }
-
     button:hover {
       transform: scale(1.05);
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    button i {
+      font-size: 18px;
     }
 
     #qrSection {
@@ -94,17 +88,17 @@
     }
 
     .qr-container {
-      background: white;      
+      background: white;
       border-radius: 15px;
       border: 10px solid transparent;
-      background-image: linear-gradient(white, white), 
+      background-image: linear-gradient(white, white),
                         linear-gradient(135deg, #3b82f6, #1e3a8a, #0f172a);
       background-origin: border-box;
       background-clip: content-box, border-box;
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
       display: inline-block;
-      position: relative;
       width: 100%;
+      padding: 15px;
     }
 
     .qr-text {
@@ -114,6 +108,12 @@
       color: #1e3a8a;
       text-transform: uppercase;
       letter-spacing: 1px;
+    }
+
+    .logo {
+      width: 100px;
+      margin: 15px auto 0;
+      display: block;
     }
 
     footer {
@@ -129,18 +129,10 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* ทำ responsive สำหรับมือถือ */
+    /* ปรับพิเศษสำหรับมือถือเล็ก */
     @media (max-width: 480px) {
-      h2 {
-        font-size: 22px;
-      }
-      input[type="text"] {
+      input[type="text"], button {
         width: 100%;
-        font-size: 14px;
-      }
-      button {
-        width: 100%;
-        justify-content: center;
       }
     }
   </style>
@@ -158,34 +150,25 @@
 
   <div id="qrSection">  
     <div class="qr-container">
-      <div id="qrcode" style="padding: 10px;"></div>	  
-      <div class="qr-text">Scan to Pay</div>	  
+      <div id="qrcode"></div>
+      <div class="qr-text">Scan to Pay</div>
       <img src="logo.png" alt="ADAPTIS Logo" class="logo">
     </div>
   </div>
 
   <footer>
-    <div>© 2025 ADAPTIS | QR Generator</div>	
+    © 2025 ADAPTIS | QR Generator
   </footer>
 
   <script>    
     const qrCode = new QRCodeStyling({
       width: 300,
       height: 300,
-      image: "QRlogo.jpg",
+      image: "https://ratchpol.github.io/adaptisnexgo/QRlogo.jpg",
       type: "svg",
-      dotsOptions: {
-        color: "#1e3a8a",
-        type: "rounded"
-      },
-      backgroundOptions: {
-        color: "#ffffff",
-      },
-      imageOptions: {
-        crossOrigin: "anonymous",
-        margin: 5,
-        imageSize: 0.4
-      }
+      dotsOptions: { color: "#1e3a8a", type: "rounded" },
+      backgroundOptions: { color: "#ffffff" },
+      imageOptions: { crossOrigin: "anonymous", margin: 5, imageSize: 0.4 }
     });
 
     let isFirstRender = true;
@@ -196,7 +179,7 @@
         alert("Please insert your SoundBox S/N!");
         return;
       }
-      text = "https://ratchpol.github.io/adaptisnexgo/?sn=S" + text; 
+      text = "https://ratchpol.github.io/adaptisnexgo/?sn=S" + text;
 
       qrCode.update({ data: text });
 
@@ -204,7 +187,7 @@
         qrCode.append(document.getElementById("qrcode"));
         isFirstRender = false;
       }
-      
+
       document.getElementById("qrSection").style.display = "block";
     }
   </script>
