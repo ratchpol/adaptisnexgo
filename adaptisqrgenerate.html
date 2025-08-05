@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>QR Code Generator with Logo</title>
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    #qrcode {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+    }
+
+    input[type="text"] {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>ADAPTIS QR SoundBox</h2>
+
+  <input type="text" id="qrText" placeholder="Sample KD68W504134" />
+  <button onclick="generateQRCode()">GEN QR</button>
+
+  <div id="qrcode"></div>
+
+  <script>    
+    const qrCode = new QRCodeStyling({
+      width: 300,
+      height: 300,
+      data: "",
+      image: "logo.png", // logo ต้องอยู่ในโฟลเดอร์เดียวกับ HTML
+      dotsOptions: {
+        color: "#000",
+        type: "rounded"
+      },
+      backgroundOptions: {
+        color: "#ffffff",
+      },
+      imageOptions: {
+        crossOrigin: "anonymous",
+        margin: 5,
+        imageSize: 0.3
+      }
+    });
+
+    let isFirstRender = true;
+
+    function generateQRCode() {
+      const text = document.getElementById("qrText").value.trim();
+      if (text === "") {
+        alert("กรุณากรอกข้อความก่อน");
+        return;
+      }
+
+      qrCode.update({ data: text });
+
+      if (isFirstRender) {
+        qrCode.append(document.getElementById("qrcode"));
+        isFirstRender = false;
+      }
+    }
+  </script>
+
+</body>
+</html>
